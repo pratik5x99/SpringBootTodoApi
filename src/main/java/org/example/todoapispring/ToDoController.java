@@ -31,7 +31,7 @@ public class ToDoController {
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<TodoItem> getTodo(@PathVariable("todoId") Long todoId){
+    public ResponseEntity<?> getTodo(@PathVariable("todoId") Long todoId){
 
         for(TodoItem todoItem : todoList){
             if(todoId == todoItem.getId()){
@@ -39,7 +39,19 @@ public class ToDoController {
             }
         }
         // along with 404 status code, try to send a json (message: todo not found)
-        return ResponseEntity.notFound().build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo Not Found");
+    }
+
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<?> deleteTodo(@PathVariable("todoId") Long todoId){
+        for(TodoItem todoItem : todoList){
+            if(todoId == todoItem.getId()){
+                todoList.remove(todoItem);
+                return ResponseEntity.status(HttpStatus.OK).body(todoList);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo Not Found");
     }
 
 }
