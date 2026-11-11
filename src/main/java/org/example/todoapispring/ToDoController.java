@@ -54,4 +54,23 @@ public class ToDoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo Not Found");
     }
 
+    @PatchMapping("/{todoId}")
+    public ResponseEntity<?> updateTodo(@PathVariable("todoId") Long todoId, @RequestParam(required = false) Boolean completed, @RequestParam(required = false) String title, @RequestParam(required = false) Integer userId){
+        for(TodoItem todoItem : todoList){
+            if(todoId == todoItem.getId()){
+                if(completed!=null){
+                    todoItem.setCompleted(completed);
+                }
+                if(title!=null){
+                    todoItem.setTitle(title);
+                }
+                if(userId!=null){
+                    todoItem.setUserId(userId);
+                }
+                return ResponseEntity.status(HttpStatus.OK).body(todoList);
+            }
+
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Todo Not Found");
+    }
 }
