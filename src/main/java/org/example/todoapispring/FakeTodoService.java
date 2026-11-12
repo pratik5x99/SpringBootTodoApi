@@ -10,7 +10,7 @@ public class FakeTodoService implements TodoService {
     @TimeMonitor
     public String doSomething(){
 
-        for(int i=0;i<1e11;i++){}
+        for(int i=0;i<1e9;i++){}
         return "Something";
     }
 }
