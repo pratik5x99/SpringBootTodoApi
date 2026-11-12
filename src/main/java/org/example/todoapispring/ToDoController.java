@@ -19,7 +19,7 @@ public class ToDoController {
 
     private static List<TodoItem> todoList;
 
-    public ToDoController(@Qualifier("anotherTodoService") TodoService todoService) {
+    public ToDoController(@Qualifier("fakeTodoService") TodoService todoService) {
         this.todoService = todoService;
         todoList = new ArrayList<>();
         todoList.add(new TodoItem(1, false, "Item 1", 1));
